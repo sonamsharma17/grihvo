@@ -34,7 +34,7 @@ const PropertyList = () => {
     const fetchProperties = async () => {
         try {
             setLoading(true);
-            let url = 'http://localhost:5000/api/properties?';
+            let url = 'https://grihvo-backend.onrender.com/api/properties?';
             if (filterType) url += `type=${filterType}`;
 
             const response = await fetch(url);
@@ -129,7 +129,7 @@ const PropertyList = () => {
                                     <img
                                         src={property.images[0]?.startsWith('http')
                                             ? property.images[0]
-                                            : `http://localhost:5000${property.images[0]}` || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800'}
+                                            : `https://grihvo-backend.onrender.com${property.images[0]}` || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800'}
                                         alt={property.title}
                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                     />

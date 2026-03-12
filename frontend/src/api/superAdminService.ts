@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/super-admin';
+const API_URL = 'https://grihvo-backend.onrender.com/api/super-admin';
 
 // Types
 export interface SuperAdminStats {
@@ -98,7 +98,7 @@ export const getPendingProducts = async (page = 1, limit = 20) => {
     try {
         const token = localStorage.getItem('token');
         // Use products endpoint
-        const response = await axios.get(`http://localhost:5000/api/products/admin/pending?page=${page}&limit=${limit}`, {
+        const response = await axios.get(`https://grihvo-backend.onrender.com/api/products/admin/pending?page=${page}&limit=${limit}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         return response.data;
@@ -111,7 +111,7 @@ export const getPendingProducts = async (page = 1, limit = 20) => {
 export const updateProductStatus = async (id: string, status: 'approved' | 'rejected') => {
     try {
         const token = localStorage.getItem('token');
-        const response = await axios.patch(`http://localhost:5000/api/products/${id}/status`, { status }, {
+        const response = await axios.patch(`https://grihvo-backend.onrender.com/api/products/${id}/status`, { status }, {
             headers: { Authorization: `Bearer ${token}` }
         });
         return response.data;

@@ -48,7 +48,7 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-20">
+    <div className="flex items-start justify-center px-4 pt-14 pb-6 lg:min-h-screen lg:items-center lg:py-20">
       {/* Grid Background */}
       <div
         className="absolute inset-0 pointer-events-none -z-10"
@@ -75,17 +75,17 @@ const Login = () => {
 
       <div className="max-w-md w-full">
 
-        <div className="text-center mb-8">
+        <div className="text-center mb-4 lg:mb-8">
 
-          <h1 className="text-4xl font-black text-amber-100 mb-2">
+          <h1 className="text-2xl lg:text-4xl font-black text-amber-100 mb-1 lg:mb-2">
             {t('auth.login_heading')} <span className="text-transparent bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text">{t('auth.login_heading_highlight')}</span>
           </h1>
-          <p className="text-amber-100/70">{t('auth.login_subheading')}</p>
+          <p className="text-amber-100/70 text-xs lg:text-base">{t('auth.login_subheading')}</p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-[#2d1a0a]/40 backdrop-blur-md border border-amber-500/20 rounded-2xl p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="bg-[#2d1a0a]/40 backdrop-blur-md border border-amber-500/20 rounded-2xl p-4 lg:p-8">
+          <form onSubmit={handleSubmit} className="space-y-3 lg:space-y-6">
             {/* Error Message */}
             {error && (
               <div className="p-3 rounded-lg bg-red-500/20 border border-red-500/50 text-red-200 text-sm font-medium text-center">

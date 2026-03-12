@@ -9,6 +9,7 @@ import i18n, { LANGUAGE_NAMES, SupportedLanguage, SUPPORTED_LANGUAGES } from '..
 const Header = () => {
   const { t } = useTranslation()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentLang, setCurrentLang] = useState<SupportedLanguage>(
     (i18n.language?.split('-')[0] as SupportedLanguage) || 'en'
   )
@@ -79,18 +80,19 @@ const Header = () => {
   }, [])
 
   return (
-    <header className="fixed w-full z-[1000] px-4 py-2 bg-[#1a120b]/80 backdrop-blur-md border-b border-amber-500/10">
+    <>
+    <header className="fixed w-full z-[1000] px-2 sm:px-4 py-2 bg-[#1a120b]/80 backdrop-blur-md border-b border-amber-500/10">
       <div className="max-w-[1280px] mx-auto flex items-center justify-between">
 
         {/* Left Side Group */}
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-0 md:gap-8">
           {/* Logo */}
           <Link to="/" className="logo">
-            <img src="/logo.png" alt="Grihvo Logo" className="w-40 h-auto block" />
+            <img src="/logo.png" alt="Grihvo Logo" className="w-20 md:w-40 h-auto block" />
           </Link>
 
           {/* Business/Work Nav Links */}
-          <nav className="inline-flex gap-6 items-center">
+          <nav className="hidden lg:inline-flex gap-6 items-center">
             <Link to="/business/type-selection" className="segmented-button group flex flex-col items-center justify-center gap-0.5 p-0 mt-[10%] text-xs font-semibold bg-gradient-to-br from-[#efd177] to-[#e2e0dc] bg-clip-text text-transparent no-underline transition-all duration-200 hover:text-[rgba(255,189,74,0.992)]" style={{ textShadow: '0 3px 10px rgba(245, 159, 11, 0.862)' }}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 stroke-2 stroke-[#efd177] group-hover:stroke-[rgba(255,189,74,0.992)]">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 4V3c0-1.7-1.3-3-3-3H8C6.3 0 5 1.3 5 3v1H0v4c0 1.7 1.3 3 3 3h14c1.7 0 3-1.3 3-3V4h-5ZM7 3c0-.6.4-1 1-1h4c.6 0 1 .4 1 1v1H7V3Zm10 9c1.2 0 2.3-.5 3-1.4V15c0 1.7-1.3 3-3 3H3c-1.7 0-3-1.3-3-3v-4.4c.7.9 1.8 1.4 3 1.4h14Z" />
@@ -108,104 +110,199 @@ const Header = () => {
         </div>
 
         {/* Right Side Group */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
 
-          {/* Cart Icon */}
-          {isLoggedIn && (
-            <Link to="/cart" className="relative p-2 text-amber-100 hover:text-amber-500 transition-all group">
-              <ShoppingCart className="w-6 h-6" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-amber-500 text-[#1a120b] text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#1a120b] group-hover:scale-110 transition-transform">
-                  {cartCount}
-                </span>
+          {/* Desktop-only items */}
+          <div className="hidden lg:flex items-center gap-3">
+            {/* Cart Icon */}
+            {isLoggedIn && (
+              <Link to="/cart" className="relative p-2 text-amber-100 hover:text-amber-500 transition-all group">
+                <ShoppingCart className="w-6 h-6" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-amber-500 text-[#1a120b] text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#1a120b] group-hover:scale-110 transition-transform">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            )}
+
+            {/* Dashboard Link */}
+            {isLoggedIn && (userRole === 'admin' || userRole === 'superadmin') && (
+              <Link
+                to={userRole === 'superadmin' ? "/super-admin/dashboard" : "/vendor/dashboard"}
+                className="flex items-center gap-1 px-3 py-2 rounded-lg text-amber-100 no-underline text-sm transition-all duration-200 hover:text-[rgba(255,189,74,0.992)]"
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                <span>{t('nav.dashboard')}</span>
+              </Link>
+            )}
+
+            {/* Help Button */}
+            <a href="#" className="flex items-center gap-1 px-3 py-2 rounded-lg text-amber-100 no-underline text-sm transition-all duration-200 hover:text-[rgba(255,189,74,0.992)]" style={{ textShadow: 'none' }}>
+              <span>{t('nav.help')}</span>
+            </a>
+            
+            {/* Language Dropdown */}
+            <div className="relative">
+              <button
+                id="language-switcher-btn"
+                aria-label="Select language"
+                aria-haspopup="listbox"
+                aria-expanded={isDropdownOpen}
+                className="flex items-center px-3 py-2 rounded-lg bg-transparent border border-transparent cursor-pointer transition-all duration-200 text-amber-100 font-semibold hover:text-[rgba(255,189,74,0.992)]"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                <Globe className="w-5 h-5" />
+                <span className="mx-1 uppercase text-sm">{currentLang}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </button>
+
+              {isDropdownOpen && (
+                <div
+                  role="listbox"
+                  aria-label="Available languages"
+                  className="absolute top-full right-0 z-10 bg-[#2d1a0a] border border-amber-500/30 rounded-lg shadow-lg min-w-[150px] mt-2 py-1"
+                >
+                  {SUPPORTED_LANGUAGES.map((code) => (
+                    <button
+                      key={code}
+                      role="option"
+                      aria-selected={currentLang === code}
+                      className={`block w-full text-left px-4 py-2 text-amber-100 text-sm transition-all duration-100 hover:bg-amber-500/10 ${currentLang === code ? 'font-bold bg-amber-500/20' : ''
+                        }`}
+                      onClick={() => handleLanguageSelect(code)}
+                    >
+                      {LANGUAGE_NAMES[code]}
+                    </button>
+                  ))}
+                </div>
               )}
-            </Link>
-          )}
+            </div>
 
-          {/* Dashboard Link */}
-          {isLoggedIn && (userRole === 'admin' || userRole === 'superadmin') && (
-            <Link
-              to={userRole === 'superadmin' ? "/super-admin/dashboard" : "/vendor/dashboard"}
-              className="flex items-center gap-1 px-3 py-2 rounded-lg text-amber-100 no-underline text-sm transition-all duration-200 hover:text-[rgba(255,189,74,0.992)]"
-            >
-              <LayoutDashboard className="w-4 h-4" />
-              <span>{t('nav.dashboard')}</span>
-            </Link>
-          )}
+            {/* Auth Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              {isLoggedIn ? (
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 px-6 py-2 border border-amber-500/30 text-amber-200 rounded-full hover:bg-amber-500/10 transition-all font-bold text-sm"
+                >
+                  <LogOut className="w-4 h-4" />
+                  {t('nav.logout')}
+                </button>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <button className="px-8 py-3 bg-amber-500 text-[#1a120b] rounded-full font-bold text-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_6px_20px_rgba(245,158,11,0.4)] shadow-[0_4px_14px_0_rgba(245,158,11,0.3)]">
+                      {t('nav.login')}
+                    </button>
+                  </Link>
+                  <Link to="/signup">
+                    <button className="border border-amber-500/30 text-amber-200 px-8 py-3 rounded-full hover:bg-amber-500/10 transition-all font-bold text-sm">
+                      {t('nav.signup')}
+                    </button>
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
 
-          {/* Help Button */}
-          <a href="#" className="flex items-center gap-1 px-3 py-2 rounded-lg text-amber-100 no-underline text-sm transition-all duration-200 hover:text-[rgba(255,189,74,0.992)]" style={{ textShadow: 'none' }}>
-            <span>{t('nav.help')}</span>
-          </a>
+          {/* Mobile-only items */}
+          <div className="lg:hidden flex items-center gap-1">
+            {/* Language Dropdown */}
+            <div className="relative">
+              <button
+                id="language-switcher-btn-mobile"
+                aria-label="Select language"
+                aria-haspopup="listbox"
+                aria-expanded={isDropdownOpen}
+                className="flex items-center px-1 py-2 rounded-lg bg-transparent border border-transparent cursor-pointer transition-all duration-200 text-amber-100 font-semibold hover:text-[rgba(255,189,74,0.992)]"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                <Globe className="w-5 h-5" />
+                <span className="hidden xs:inline mx-1 uppercase text-sm">{currentLang}</span>
+                <span className="inline xs:hidden mx-0.5 uppercase text-xs">{currentLang}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-3 h-3">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </button>
 
-          {/* Language Dropdown */}
-          <div className="relative">
-            <button
-              id="language-switcher-btn"
-              aria-label="Select language"
-              aria-haspopup="listbox"
-              aria-expanded={isDropdownOpen}
-              className="flex items-center px-3 py-2 rounded-lg bg-transparent border border-transparent cursor-pointer transition-all duration-200 text-amber-100 font-semibold hover:text-[rgba(255,189,74,0.992)]"
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            >
-              <Globe className="w-5 h-5" />
-              <span className="mx-1 uppercase text-sm">{currentLang}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              {isDropdownOpen && (
+                <div
+                  role="listbox"
+                  aria-label="Available languages"
+                  className="absolute top-full right-0 z-10 bg-[#2d1a0a] border border-amber-500/30 rounded-lg shadow-lg min-w-[150px] mt-2 py-1"
+                >
+                  {SUPPORTED_LANGUAGES.map((code) => (
+                    <button
+                      key={code}
+                      role="option"
+                      aria-selected={currentLang === code}
+                      className={`block w-full text-left px-4 py-2 text-amber-100 text-sm transition-all duration-100 hover:bg-amber-500/10 ${currentLang === code ? 'font-bold bg-amber-500/20' : ''
+                        }`}
+                      onClick={() => handleLanguageSelect(code)}
+                    >
+                      {LANGUAGE_NAMES[code]}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            
+            {!isLoggedIn && (
+              <Link to="/login">
+                <button className="px-3 py-1.5 bg-amber-500 text-[#1a120b] rounded-full font-bold text-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_6px_20px_rgba(245,158,11,0.4)] shadow-[0_4px_14px_0_rgba(245,158,11,0.3)]">
+                  {t('nav.login')}
+                </button>
+              </Link>
+            )}
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-1 text-amber-100">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
               </svg>
             </button>
-
-            {isDropdownOpen && (
-              <div
-                role="listbox"
-                aria-label="Available languages"
-                className="absolute top-full right-0 z-10 bg-[#2d1a0a] border border-amber-500/30 rounded-lg shadow-lg min-w-[150px] mt-2 py-1"
-              >
-                {SUPPORTED_LANGUAGES.map((code) => (
-                  <button
-                    key={code}
-                    role="option"
-                    aria-selected={currentLang === code}
-                    className={`block w-full text-left px-4 py-2 text-amber-100 text-sm transition-all duration-100 hover:bg-amber-500/10 ${currentLang === code ? 'font-bold bg-amber-500/20' : ''
-                      }`}
-                    onClick={() => handleLanguageSelect(code)}
-                  >
-                    {LANGUAGE_NAMES[code]}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Auth Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {isLoggedIn ? (
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-2 px-6 py-2 border border-amber-500/30 text-amber-200 rounded-full hover:bg-amber-500/10 transition-all font-bold text-sm"
-              >
-                <LogOut className="w-4 h-4" />
-                {t('nav.logout')}
-              </button>
-            ) : (
-              <>
-                <Link to="/login">
-                  <button className="px-8 py-3 bg-amber-500 text-[#1a120b] rounded-full font-bold text-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_6px_20px_rgba(245,158,11,0.4)] shadow-[0_4px_14px_0_rgba(245,158,11,0.3)]">
-                    {t('nav.login')}
-                  </button>
-                </Link>
-                <Link to="/signup">
-                  <button className="border border-amber-500/30 text-amber-200 px-8 py-3 rounded-full hover:bg-amber-500/10 transition-all font-bold text-sm">
-                    {t('nav.signup')}
-                  </button>
-                </Link>
-              </>
-            )}
           </div>
         </div>
-
       </div>
+
     </header>
+
+      {/* Mobile Menu Sidebar — outside header to avoid backdrop-blur inheritance */}
+      <div className={`fixed top-0 right-0 h-full bg-[#2C1A0E] w-1/2 transform ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out z-[1100]`}>
+        {/* Close Button */}
+        <div className="flex justify-end px-5 py-5">
+          <button onClick={() => setIsMobileMenuOpen(false)} className="text-amber-100 hover:text-amber-400 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        {/* Sidebar Nav Links */}
+        <nav className="flex flex-col mt-4">
+          {!isLoggedIn && (
+            <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)} className="text-right px-8 py-5 text-amber-100 hover:text-amber-400 transition-all text-xl font-bold border-b border-amber-500/20 w-full">{t('nav.signup')}</Link>
+          )}
+          <Link to="/business/type-selection" onClick={() => setIsMobileMenuOpen(false)} className="text-right px-8 py-5 text-amber-100 hover:text-amber-400 transition-all text-xl font-bold border-b border-amber-500/20 w-full">{t('nav.business')}</Link>
+          <Link to="/work/register" onClick={() => setIsMobileMenuOpen(false)} className="text-right px-8 py-5 text-amber-100 hover:text-amber-400 transition-all text-xl font-bold border-b border-amber-500/20 w-full">{t('nav.work')}</Link>
+          <a href="#" onClick={() => setIsMobileMenuOpen(false)} className="text-right px-8 py-5 text-amber-100 hover:text-amber-400 transition-all text-xl font-bold border-b border-amber-500/20 w-full">{t('nav.help')}</a>
+          {isLoggedIn && (
+            <button
+              onClick={handleLogout}
+              className="text-right px-8 py-5 text-amber-200 hover:text-amber-400 transition-all text-xl font-bold border-b border-amber-500/20 w-full flex items-center justify-end gap-2"
+            >
+              <LogOut className="w-5 h-5" />
+              {t('nav.logout')}
+            </button>
+          )}
+        </nav>
+        {/* Logo at bottom right */}
+        <div className="absolute bottom-8 right-8 flex flex-col items-end gap-1">
+          <img src="/logo.png" alt="Grihvo Logo" className="w-32 h-auto" />
+          <span className="text-amber-500 text-[10px] tracking-widest uppercase">Built for Dreams</span>
+        </div>
+      </div>
+    </>
   )
 }
 

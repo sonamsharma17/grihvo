@@ -130,7 +130,7 @@ const PublicProducts = () => {
                                 <div className="relative h-48 bg-[#1a120b] border-b border-amber-500/10 overflow-hidden">
                                     {product.images && product.images[0] ? (
                                         <img
-                                            src={product.images[0].startsWith('http') ? product.images[0] : `http://localhost:5000/${product.images[0]}`}
+                                            src={product.images[0].startsWith('http') ? product.images[0] : `https://grihvo-backend.onrender.com/${product.images[0]}`}
                                             alt={product.productName}
                                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                         />

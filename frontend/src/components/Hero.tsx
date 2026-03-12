@@ -25,7 +25,7 @@ const Hero = () => {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/workers/locations')
+        const response = await fetch('https://grihvo-backend.onrender.com/api/workers/locations')
         const data = await response.json()
         if (data.success) setLocations(data.locations)
       } catch (error) {
@@ -38,7 +38,7 @@ const Hero = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        let url = 'http://localhost:5000/api/workers/categories'
+        let url = 'https://grihvo-backend.onrender.com/api/workers/categories'
         if (selectedLocation) url += `?location=${encodeURIComponent(selectedLocation)}`
         const response = await fetch(url)
         const data = await response.json()
@@ -77,8 +77,8 @@ const Hero = () => {
 
           {/* Left Side - Text Content */}
           <div className="space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-5xl lg:text-6xl font-black leading-tight">
+            <div className="space-y-4 md:max-w-[680px] md:mx-auto lg:max-w-none lg:mx-0">
+              <h1 className="text-5xl lg:text-6xl font-black leading-tight text-left md:text-center lg:text-left">
                 <span className="text-amber-100">{t('hero.headline_pre')} </span>
                 <span
                   className="text-transparent bg-gradient-to-br from-amber-300 to-amber-500 bg-clip-text transition-all duration-500"
@@ -93,12 +93,12 @@ const Hero = () => {
                 <span className="text-transparent bg-gradient-to-br from-amber-300 to-amber-500 bg-clip-text">{t('hero.projects')}</span>
                 <span className="text-amber-100">.</span>
               </h1>
-              <p className="text-amber-100/70 text-lg">{t('hero.subtitle')}</p>
+              <p className="text-amber-100/70 text-lg text-left md:text-center lg:text-left">{t('hero.subtitle')}</p>
             </div>
 
             {/* Search Inputs */}
             <div className="space-y-4">
-              <div className="relative group">
+              <div className="relative group md:max-w-[680px] md:mx-auto lg:max-w-none lg:mx-0">
                 <div className="absolute left-4 top-1/2 -translate-y-1/2 text-amber-400">
                   <MapPin className="w-6 h-6" />
                 </div>
@@ -114,7 +114,7 @@ const Hero = () => {
                   {locations.map((loc, idx) => <option key={idx} value={loc} />)}
                 </datalist>
               </div>
-              <div className="relative group">
+              <div className="relative group md:max-w-[680px] md:mx-auto lg:max-w-none lg:mx-0">
                 <div className="absolute left-4 top-1/2 -translate-y-1/2 text-amber-400">
                   <Wrench className="w-6 h-6" />
                 </div>
@@ -132,7 +132,7 @@ const Hero = () => {
                 </datalist>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row gap-4 pt-2 md:max-w-[680px] md:mx-auto lg:max-w-none lg:mx-0">
                 <button
                   onClick={handleSearch}
                   className="flex-1 px-8 py-4 bg-amber-500 text-[#1a120b] rounded-full font-bold text-lg transition-all hover:shadow-[0_8px_30px_rgba(245,158,11,0.5)] shadow-[0_6px_20px_0_rgba(245,158,11,0.4)]"

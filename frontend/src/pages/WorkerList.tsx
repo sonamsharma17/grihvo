@@ -48,7 +48,7 @@ const WorkerList = () => {
     useEffect(() => {
         const fetchLocations = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/workers/locations');
+                const response = await fetch('https://grihvo-backend.onrender.com/api/workers/locations');
                 const data = await response.json();
                 if (data.success) {
                     setAvailableLocations(data.locations);
@@ -67,7 +67,7 @@ const WorkerList = () => {
     const fetchWorkers = async () => {
         try {
             setLoading(true);
-            let url = 'http://localhost:5000/api/workers?';
+            let url = 'https://grihvo-backend.onrender.com/api/workers?';
             if (filterType) url += `type=${filterType}&`;
             if (filterCategory) url += `category=${filterCategory}&`;
             if (filterLocation) url += `address=${encodeURIComponent(filterLocation)}&`;

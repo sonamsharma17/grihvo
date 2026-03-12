@@ -55,7 +55,7 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
     }, [onClose]);
 
     const getImageUrl = (img: string) => {
-        return img.startsWith('http') ? img : `http://localhost:5000/${img}`;
+        return img.startsWith('http') ? img : `https://grihvo-backend.onrender.com/${img}`;
     };
 
     return (

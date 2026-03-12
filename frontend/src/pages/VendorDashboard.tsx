@@ -16,10 +16,8 @@ import {
     Package,
     Users,
     TrendingUp,
-    ArrowUpRight,
     Search,
-    Filter,
-    MoreHorizontal
+    Filter
 } from 'lucide-react';
 import { getDashboardStats, getRecentOrders, DashboardStats, Order } from '../api/dashboardService';
 

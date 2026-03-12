@@ -43,7 +43,7 @@ const WorkerRegistration = () => {
         e.preventDefault();
         setStatus('submitting');
         try {
-            const response = await fetch('http://localhost:5000/api/workers/register', {
+            const response = await fetch('https://grihvo-backend.onrender.com/api/workers/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -76,14 +76,14 @@ const WorkerRegistration = () => {
     };
 
     return (
-        <section ref={sectionRef} className="py-20 px-4 relative min-h-screen flex items-center justify-center">
+        <section ref={sectionRef} className="py-14 lg:py-20 px-4 relative flex items-start lg:min-h-screen lg:items-center lg:justify-center">
             {/* Background Overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#4d3a2a]/40 via-[#5d4a3a]/50 to-transparent -z-10" />
 
-            <div className={`max-w-2xl w-full bg-[#2d1a0a]/80 backdrop-blur-md border border-amber-500/20 rounded-2xl p-8 shadow-2xl transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold text-amber-100 mb-2">{t('worker_reg.heading')}</h2>
-                    <p className="text-amber-100/70">{t('worker_reg.subheading')}</p>
+            <div className={`max-w-2xl w-full bg-[#2d1a0a]/80 backdrop-blur-md border border-amber-500/20 rounded-2xl p-4 lg:p-8 shadow-2xl transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                <div className="text-center mb-4 lg:mb-8">
+                    <h2 className="text-2xl lg:text-3xl font-bold text-amber-100 mb-1 lg:mb-2">{t('worker_reg.heading')}</h2>
+                    <p className="text-amber-100/70 text-xs lg:text-base">{t('worker_reg.subheading')}</p>
                 </div>
 
                 {status === 'success' ? (
@@ -98,10 +98,10 @@ const WorkerRegistration = () => {
                         </button>
                     </div>
                 ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-3 lg:space-y-6">
                         {/* Worker Type Selection */}
-                        <div className="flex gap-4 mb-6">
-                            <label className={`flex-1 cursor-pointer border rounded-lg p-4 text-center transition-all ${formData.type === 'Labour' ? 'bg-amber-500/20 border-amber-500 text-amber-100' : 'border-amber-500/20 text-amber-100/60 hover:border-amber-500/50'}`}>
+                        <div className="flex gap-3 lg:gap-4 mb-3 lg:mb-6">
+                            <label className={`flex-1 cursor-pointer border rounded-lg p-2 lg:p-4 text-center transition-all ${formData.type === 'Labour' ? 'bg-amber-500/20 border-amber-500 text-amber-100' : 'border-amber-500/20 text-amber-100/60 hover:border-amber-500/50'}`}>
                                 <input
                                     type="radio"
                                     name="type"
@@ -112,7 +112,7 @@ const WorkerRegistration = () => {
                                 />
                                 <span className="font-semibold">{t('worker_reg.type_labour')}</span>
                             </label>
-                            <label className={`flex-1 cursor-pointer border rounded-lg p-4 text-center transition-all ${formData.type === 'Professional' ? 'bg-amber-500/20 border-amber-500 text-amber-100' : 'border-amber-500/20 text-amber-100/60 hover:border-amber-500/50'}`}>
+                            <label className={`flex-1 cursor-pointer border rounded-lg p-2 lg:p-4 text-center transition-all ${formData.type === 'Professional' ? 'bg-amber-500/20 border-amber-500 text-amber-100' : 'border-amber-500/20 text-amber-100/60 hover:border-amber-500/50'}`}>
                                 <input
                                     type="radio"
                                     name="type"
@@ -128,7 +128,7 @@ const WorkerRegistration = () => {
                         {/* Professional Category (Conditional) */}
                         {formData.type === 'Professional' && (
                             <div>
-                                <label className="block text-amber-100 mb-2 text-sm font-medium">{t('worker_reg.category_label')}</label>
+                                <label className="block text-amber-100 mb-1 lg:mb-2 text-xs lg:text-sm font-medium">{t('worker_reg.category_label')}</label>
                                 <select
                                     name="category"
                                     value={formData.category}
@@ -145,9 +145,9 @@ const WorkerRegistration = () => {
                         )}
 
                         {/* Common Fields */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-6">
                             <div>
-                                <label className="block text-amber-100 mb-2 text-sm font-medium">{t('worker_reg.name_label')}</label>
+                                <label className="block text-amber-100 mb-1 lg:mb-2 text-xs lg:text-sm font-medium">{t('worker_reg.name_label')}</label>
                                 <input
                                     type="text"
                                     name="name"
@@ -159,7 +159,7 @@ const WorkerRegistration = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-amber-100 mb-2 text-sm font-medium">{t('worker_reg.phone_label')}</label>
+                                <label className="block text-amber-100 mb-1 lg:mb-2 text-xs lg:text-sm font-medium">{t('worker_reg.phone_label')}</label>
                                 <input
                                     type="tel"
                                     name="phone"
@@ -173,7 +173,7 @@ const WorkerRegistration = () => {
                         </div>
 
                         <div>
-                            <label className="block text-amber-100 mb-2 text-sm font-medium">{t('worker_reg.password_label')}</label>
+                            <label className="block text-amber-100 mb-1 lg:mb-2 text-xs lg:text-sm font-medium">{t('worker_reg.password_label')}</label>
                             <input
                                 type="password"
                                 name="password"
@@ -185,9 +185,9 @@ const WorkerRegistration = () => {
                             />
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-6">
                             <div>
-                                <label className="block text-amber-100 mb-2 text-sm font-medium">{t('worker_reg.age_label')}</label>
+                                <label className="block text-amber-100 mb-1 lg:mb-2 text-xs lg:text-sm font-medium">{t('worker_reg.age_label')}</label>
                                 <input
                                     type="number"
                                     name="age"
@@ -199,7 +199,7 @@ const WorkerRegistration = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-amber-100 mb-2 text-sm font-medium">{t('worker_reg.aadhar_label')}</label>
+                                <label className="block text-amber-100 mb-1 lg:mb-2 text-xs lg:text-sm font-medium">{t('worker_reg.aadhar_label')}</label>
                                 <input
                                     type="text"
                                     name="aadhar"
@@ -213,7 +213,7 @@ const WorkerRegistration = () => {
                         </div>
 
                         <div>
-                            <label className="block text-amber-100 mb-2 text-sm font-medium">{t('worker_reg.address_label')}</label>
+                            <label className="block text-amber-100 mb-1 lg:mb-2 text-xs lg:text-sm font-medium">{t('worker_reg.address_label')}</label>
                             <textarea
                                 name="address"
                                 value={formData.address}
@@ -228,7 +228,7 @@ const WorkerRegistration = () => {
                         <button
                             type="submit"
                             disabled={status === 'submitting'}
-                            className="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-[#1a120b] font-bold py-4 rounded-lg hover:from-amber-400 hover:to-orange-500 transition-all shadow-[0_4px_14px_0_rgba(245,158,11,0.39)] hover:shadow-[0_6px_20px_rgba(245,158,11,0.23)] hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-[#1a120b] font-bold py-2 lg:py-4 text-xs lg:text-base rounded-lg hover:from-amber-400 hover:to-orange-500 transition-all shadow-[0_4px_14px_0_rgba(245,158,11,0.39)] hover:shadow-[0_6px_20px_rgba(245,158,11,0.23)] hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
                         >
                             {status === 'submitting' ? t('worker_reg.submitting') : t('worker_reg.submit_btn')}
                         </button>

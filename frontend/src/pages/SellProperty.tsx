@@ -43,7 +43,7 @@ const SellProperty = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/properties/list', {
+            const response = await fetch('https://grihvo-backend.onrender.com/api/properties/list', {
                 method: 'POST',
                 body: data
             });

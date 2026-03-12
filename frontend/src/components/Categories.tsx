@@ -21,34 +21,36 @@ const Categories = () => {
   ]
 
   return (
-    <section ref={sectionRef} className="py-20 px-4 relative">
+    <section ref={sectionRef} className="py-20 px-4 pt-8 lg:pt-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-[#4d3a2a]/40 via-[#5d4a3a]/50 to-transparent -z-10" />
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className={`text-4xl lg:text-5xl font-black text-amber-100 mb-2 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center mb-4 lg:mb-16">
+          <h2 className={`text-2xl lg:text-5xl font-black text-amber-100 mb-2 transition-all duration-700 whitespace-nowrap ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             {t('categories.heading')}
           </h2>
           <div className="w-24 h-1.5 bg-gradient-to-r from-amber-500 to-orange-600 mx-auto rounded-full mt-4" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-10 max-w-[320px] mx-auto md:max-w-[680px] lg:max-w-none">
           {categories.map((category, index) => (
             <div
               key={category.key}
               onClick={() => handleCategoryClick(category.key)}
-              className={`group relative bg-[#2d1a0a]/60 backdrop-blur-md border border-amber-500/10 rounded-3xl overflow-hidden transition-all duration-700 ease-in-out hover:bg-[#2d1a0a]/80 hover:border-amber-500/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] cursor-pointer flex flex-col sm:flex-row h-[200px] sm:h-[240px] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              className={`group relative bg-[#2d1a0a]/60 backdrop-blur-md border border-amber-500/10 rounded-3xl overflow-hidden transition-all duration-700 ease-in-out hover:bg-[#2d1a0a]/80 hover:border-amber-500/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] cursor-pointer flex flex-col lg:flex-row h-auto lg:h-[240px] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: `${index * 100 + 200}ms` }}
             >
-              <div className="flex-1 p-8 flex flex-col justify-center relative z-10">
-                <h3 className="text-2xl sm:text-3xl font-black text-amber-100 group-hover:text-amber-400 transition-colors duration-300 leading-tight">
-                  {t(`categories.${category.key}`)}
-                </h3>
-              </div>
-              <div className="relative w-full sm:w-1/2 h-full overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#2d1a0a] via-transparent to-transparent z-10 sm:block hidden" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#2d1a0a] via-transparent to-transparent z-10 sm:hidden block" />
+              {/* Image — top on mobile, right on desktop */}
+              <div className="relative w-full h-[110px] lg:w-1/2 lg:h-full overflow-hidden order-first lg:order-last">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#2d1a0a] z-10 sm:hidden block" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#2d1a0a] via-transparent to-transparent z-10 lg:block hidden" />
                 <img src={category.image} alt={t(`categories.${category.key}`)} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-amber-500/5 group-hover:bg-transparent transition-colors duration-500" />
+              </div>
+              {/* Text — bottom on mobile, left on desktop */}
+              <div className="flex-1 p-3 lg:p-8 flex flex-col justify-center relative z-10 order-last lg:order-first">
+                <h3 className="text-sm lg:text-3xl font-black text-amber-100 group-hover:text-amber-400 transition-colors duration-300 leading-tight">
+                  {t(`categories.${category.key}`)}
+                </h3>
               </div>
             </div>
           ))}

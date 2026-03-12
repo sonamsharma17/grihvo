@@ -9,12 +9,19 @@ const QualityMaterial = () => {
   const navigate = useNavigate()
   const [materials, setMaterials] = useState<any[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024)
   const { ref: sectionRef } = useScrollAnimation(0.1)
+
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 1024)
+    window.addEventListener('resize', handler)
+    return () => window.removeEventListener('resize', handler)
+  }, [])
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/products?limit=50')
+        const response = await fetch('https://grihvo-backend.onrender.com/api/products?limit=50')
         const data = await response.json()
         if (data.success) {
           // Group by business and take the first product of each
@@ -24,7 +31,7 @@ const QualityMaterial = () => {
               businessMap.set(p.businessId._id, {
                 id: p._id,
                 name: p.productName,
-                image: p.images[0]?.startsWith('http') ? p.images[0] : `http://localhost:5000/${p.images[0]}`,
+                image: p.images[0]?.startsWith('http') ? p.images[0] : `https://grihvo-backend.onrender.com/${p.images[0]}`,
                 category: p.category
               })
             }
@@ -71,7 +78,7 @@ const QualityMaterial = () => {
   }
 
   return (
-    <section ref={sectionRef} className="py-20 px-4 relative">
+    <section ref={sectionRef} className="py-20 px-4 pt-2 lg:pt-20 relative">
       <div
         className="absolute inset-0 pointer-events-none -z-10"
         style={{
@@ -95,11 +102,11 @@ const QualityMaterial = () => {
       />
 
       <div className="max-w-7xl mx-auto">
-        <div className="mb-12 text-center">
-          <h2 className="text-4xl lg:text-5xl font-black text-amber-100 mb-2">
+        <div className="mb-4 lg:mb-12 text-center">
+          <h2 className="text-2xl lg:text-5xl font-black text-amber-100 mb-2 whitespace-nowrap">
             {t('quality.heading')}
           </h2>
-          <p className="text-amber-100/70 text-lg">
+          <p className="text-amber-100/70 text-xs lg:text-lg">
             {t('quality.subheading')}
           </p>
         </div>
@@ -125,14 +132,14 @@ const QualityMaterial = () => {
             <div
               className="flex gap-6 transition-transform duration-700 ease-in-out"
               style={{
-                transform: `translateX(-${currentIndex * 25.4}%)`
+                transform: isMobile ? `translateX(-${currentIndex * 184}px)` : `translateX(-${currentIndex * 25.4}%)`
               }}
             >
               {[...materials, ...materials].map((material, index) => (
                 <div
                   key={`${material.id}-${index}`}
                   className="flex-shrink-0 cursor-pointer"
-                  style={{ width: 'calc(25% - 18px)' }}
+                  style={{ width: isMobile ? '160px' : 'calc(25% - 18px)' }}
                   onClick={() => navigate(`/products?productId=${material.id}`)}
                 >
                   <div className="relative bg-[#2d1a0a]/40 backdrop-blur-md border border-amber-500/20 rounded-2xl overflow-hidden">
@@ -150,15 +157,9 @@ const QualityMaterial = () => {
 
                     {/* Name */}
                     <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-2xl font-bold text-transparent bg-gradient-to-br from-amber-200 to-amber-400 bg-clip-text mb-2">
+                      <h3 className="text-xs lg:text-2xl font-bold text-transparent bg-gradient-to-br from-amber-200 to-amber-400 bg-clip-text mb-2">
                         {material.name}
                       </h3>
-                      <div className="inline-flex items-center text-amber-400/60 hover:text-amber-400/80 hover:translate-x-1.5 transition-all duration-100">
-                        <span className="text-sm font-semibold mr-1">{t('quality.view_cta')}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg>
-                      </div>
                     </div>
                   </div>
                 </div>

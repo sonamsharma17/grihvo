@@ -137,7 +137,7 @@ const BusinessRegistration = () => {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center px-4 py-20">
+        <div className="flex items-start justify-center px-4 pt-16 pb-6 lg:min-h-screen lg:items-center lg:py-20">
             {/* Grid Background */}
             <div
                 className="absolute inset-0 pointer-events-none -z-10"
@@ -164,7 +164,7 @@ const BusinessRegistration = () => {
 
             <div className="max-w-4xl w-full">
                 {/* Header */}
-                <div className="text-center mb-8">
+                <div className="text-center mb-4 lg:mb-8">
                     <button
                         onClick={() => navigate('/business/type-selection')}
                         className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 mb-4"
@@ -172,7 +172,7 @@ const BusinessRegistration = () => {
                         <ArrowLeft className="w-4 h-4" />
                         <span className="text-sm font-semibold">{t('business_reg.back_btn')}</span>
                     </button>
-                    <h1 className="text-4xl font-black text-amber-100 mb-2">
+                    <h1 className="text-2xl lg:text-4xl font-black text-amber-100 mb-1 lg:mb-2">
                         {t('business_reg.heading')}{' '}
                         <span className="text-transparent bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text">
                             {t('business_reg.heading_highlight')}
@@ -184,7 +184,7 @@ const BusinessRegistration = () => {
                 </div>
 
                 {/* Progress Indicator */}
-                <div className="mb-8">
+                <div className="mb-4 lg:mb-8">
                     <div className="flex items-center justify-between mb-4">
                         <span className="text-amber-100/80 text-sm font-semibold">
                             {t('business_reg.step_prefix')} {currentStep} {t('business_reg.of')} {totalSteps}
@@ -319,7 +319,7 @@ const BusinessRegistration = () => {
                         <button
                             onClick={handlePrevious}
                             disabled={currentStep === 1 || isSubmitting}
-                            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold ${currentStep === 1 || isSubmitting
+                            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm lg:text-base ${currentStep === 1 || isSubmitting
                                 ? 'bg-[#1a120b]/60 text-amber-100/40 cursor-not-allowed'
                                 : 'bg-[#1a120b]/60 text-amber-100 hover:bg-[#1a120b]/80 border border-amber-500/30'
                                 }`}
@@ -332,7 +332,7 @@ const BusinessRegistration = () => {
                             <button
                                 onClick={handleNext}
                                 disabled={isSubmitting}
-                                className="flex items-center gap-2 px-6 py-3 rounded-lg font-semibold bg-gradient-to-r from-amber-500 to-orange-600 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm lg:text-base bg-gradient-to-r from-amber-500 to-orange-600 text-white disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 <span>{t('business_reg.nav_next')}</span>
                                 <ArrowRight className="w-5 h-5" />
@@ -341,7 +341,7 @@ const BusinessRegistration = () => {
                             <button
                                 onClick={handleSubmit}
                                 disabled={isSubmitting}
-                                className="flex items-center gap-2 px-6 py-3 rounded-lg font-semibold bg-gradient-to-r from-amber-500 to-orange-600 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm lg:text-base bg-gradient-to-r from-amber-500 to-orange-600 text-white disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {isSubmitting ? (
                                     <>

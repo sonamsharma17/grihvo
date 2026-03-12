@@ -76,7 +76,7 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
                 specifications: product.specifications,
                 images: []
             });
-            setImagePreviews(product.images.map(img => img.startsWith('http') ? img : `http://localhost:5000/${img}`));
+            setImagePreviews(product.images.map(img => img.startsWith('http') ? img : `https://grihvo-backend.onrender.com/${img}`));
             calculateDiscount(product.actualPrice, product.sellingPrice);
         }
     }, [product]);

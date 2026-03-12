@@ -157,7 +157,7 @@ const ProductManagement = () => {
                                     {product.images && product.images[0] ? (
                                         <>
                                             <img
-                                                src={product.images[0].startsWith('http') ? product.images[0] : `http://localhost:5000/${product.images[0]}`}
+                                                src={product.images[0].startsWith('http') ? product.images[0] : `https://grihvo-backend.onrender.com/${product.images[0]}`}
                                                 alt={product.productName}
                                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                             />

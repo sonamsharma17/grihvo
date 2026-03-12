@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getCart, removeFromCart, updateCartQuantity, CartItem } from '../api/cartService';
 import { ShoppingCart, Trash2, ArrowLeft, Plus, Minus, Loader2, CreditCard } from 'lucide-react';
@@ -15,7 +15,7 @@ const CartPage = () => {
 
     const getImageUrl = (img: string) => {
         if (!img) return '';
-        return img.startsWith('http') ? img : `http://localhost:5000/${img}`;
+        return img.startsWith('http') ? img : `https://grihvo-backend.onrender.com/${img}`;
     };
 
     const fetchCart = async () => {

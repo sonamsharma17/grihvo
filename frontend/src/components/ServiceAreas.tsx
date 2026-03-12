@@ -7,16 +7,16 @@ const ServiceAreas = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation(0.1)
 
   return (
-    <section ref={sectionRef} className="py-20 px-4 relative overflow-hidden">
+    <section ref={sectionRef} className="py-6 lg:py-20 px-4 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#4d3a2a]/40 via-[#5d4a3a]/50 to-transparent -z-10" />
       <div className="absolute top-20 left-10 w-32 h-32 bg-amber-500/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-20 right-10 w-40 h-40 bg-amber-500/5 rounded-full blur-3xl"></div>
 
       <div className="max-w-6xl mx-auto">
-        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <MapPin className="w-12 h-12 text-amber-400" />
-            <h2 className="text-4xl lg:text-6xl font-black text-amber-100">
+        <div className={`text-center mb-6 lg:mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="flex items-center justify-center gap-2 lg:gap-3 mb-3 lg:mb-6">
+            <MapPin className="w-6 h-6 lg:w-12 lg:h-12 text-amber-400" />
+            <h2 className="text-2xl lg:text-6xl font-black text-amber-100">
               {t('service_areas.heading')}{' '}
               <span className="text-transparent bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text">
                 {t('service_areas.heading_highlight')}
@@ -26,21 +26,21 @@ const ServiceAreas = () => {
         </div>
 
         <div className="relative">
-          <div className={`mb-16 text-center transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className={`mb-6 lg:mb-16 text-center transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500/20 to-amber-600/20 border border-amber-500/40 rounded-full px-8 py-4 mb-6">
               <Sparkles className="w-6 h-6 text-amber-400" />
-              <span className="text-2xl lg:text-3xl font-black text-transparent bg-gradient-to-r from-amber-200 to-amber-400 bg-clip-text">
+              <span className="text-sm lg:text-3xl font-black text-transparent bg-gradient-to-r from-amber-200 to-amber-400 bg-clip-text">
                 {t('service_areas.launching')}
               </span>
             </div>
-            <p className="text-amber-100/80 text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed mb-8">
+            <p className="text-amber-100/80 text-xs lg:text-xl max-w-3xl mx-auto leading-relaxed mb-4 lg:mb-8">
               {t('service_areas.jaipur_desc')}
             </p>
             <div className="flex flex-wrap justify-center gap-6 mb-8">
               {(['feat1', 'feat2', 'feat3'] as const).map((key, i) => (
                 <div key={i} className={`flex items-center gap-2 text-amber-100/70 transition-all duration-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`} style={{ transitionDelay: `${300 + i * 100}ms` }}>
                   <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
-                  <span className="text-lg">{t(`service_areas.${key}`)}</span>
+                  <span className="text-xs lg:text-lg">{t(`service_areas.${key}`)}</span>
                 </div>
               ))}
             </div>
@@ -52,13 +52,13 @@ const ServiceAreas = () => {
           </div>
 
           <div className={`text-center transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <h3 className="text-3xl lg:text-4xl font-black text-amber-100 mb-6">
+            <h3 className="text-xl lg:text-4xl font-black text-amber-100 mb-3 lg:mb-6">
               {t('service_areas.expand_heading')}{' '}
               <span className="text-transparent bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text">
                 {t('service_areas.expand_highlight')}
               </span>
             </h3>
-            <p className="text-amber-100/70 text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed mb-8">
+            <p className="text-amber-100/70 text-xs lg:text-xl max-w-3xl mx-auto leading-relaxed mb-4 lg:mb-8">
               {t('service_areas.expand_desc')}
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -69,8 +69,8 @@ const ServiceAreas = () => {
               ))}
             </div>
             <div className={`inline-block transition-all duration-700 delay-[1100ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <p className="text-amber-100/70 text-lg mb-3">{t('service_areas.want_city')}</p>
-              <a href="#" className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-bold text-xl group transition-all duration-300">
+              <p className="text-amber-100/70 text-xs lg:text-lg mb-2 lg:mb-3">{t('service_areas.want_city')}</p>
+              <a href="#" className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-bold text-sm lg:text-xl group transition-all duration-300">
                 <span className="group-hover:translate-x-1 transition-transform duration-100">{t('service_areas.let_us_know')}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-100"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
               </a>

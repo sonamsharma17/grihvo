@@ -98,7 +98,7 @@ const ProductApprovals = () => {
                                         <>
                                             <div className="h-48 rounded-lg overflow-hidden border border-amber-500/10">
                                                 <img
-                                                    src={product.images[0].startsWith('http') ? product.images[0] : `http://localhost:5000/${product.images[0]}`}
+                                                    src={product.images[0].startsWith('http') ? product.images[0] : `https://grihvo-backend.onrender.com/${product.images[0]}`}
                                                     alt={product.productName}
                                                     className="w-full h-full object-cover"
                                                 />
@@ -108,7 +108,7 @@ const ProductApprovals = () => {
                                                     {product.images.slice(1).map((img, idx) => (
                                                         <img
                                                             key={idx}
-                                                            src={img.startsWith('http') ? img : `http://localhost:5000/${img}`}
+                                                            src={img.startsWith('http') ? img : `https://grihvo-backend.onrender.com/${img}`}
                                                             alt={`${product.productName} ${idx + 2}`}
                                                             className="h-16 w-16 object-cover rounded border border-amber-500/10 hover:border-amber-500/30 transition-colors cursor-pointer"
                                                         />
